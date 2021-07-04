@@ -13,7 +13,7 @@ RUN npm install
 COPY . .
 #Copy all files from project to image
 
-EXPOSE 8080
+EXPOSE 1010
 #Port 8080
 
 CMD ["node", "index.js"]

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: conversao
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: conversao
+  template:
+    metadata:
+      labels:
+        app: conversao
+    spec:
+      containers:
+        - name: conversao
+          image: bpvcode/api-conversao:v4
+          ports:
+            - containerPort: 1010 #Same as we are exposing in the Dockerfile
+
+---
+# APPLICATION SERVICE
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: conversao-service
+spec:
+  selector:
+    app: conversao
+  ports:
+  - port: 1010 # Default port to web applications
+    #targetPort: 1010 # Container port
+    nodePort: 32000
+  type: NodePort
